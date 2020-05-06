@@ -18,7 +18,7 @@ from resource_tracking import resource_tracking
 
 MODEL_PATH = './model/'
 DATA_PATH = './data/'
-RESULT_PATH = './zhaoai_results/'
+RESULT_PATH = './ai_results/'
 
 SMALL_VALUE = 0.001
 
