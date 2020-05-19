@@ -1,0 +1,1 @@
+Due to Github file size limits, please unzip the netflix and purchase feature files in ./dataset/ before attempting to run scripts.
