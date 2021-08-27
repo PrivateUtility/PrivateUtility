@@ -8,10 +8,12 @@ from tensorflow_privacy.privacy.analysis.rdp_accountant import compute_rdp
 from tensorflow_privacy.privacy.analysis.rdp_accountant import get_privacy_spent
 from tensorflow_privacy.privacy.optimizers import dp_optimizer
 
-
-sys.path.append("./../Smooth_Random_Trees")
-from Smooth_Random_Trees import DP_Random_Forest as DP_RNDF
-
+try:
+    sys.path.append("./../Smooth_Random_Trees")
+    from Smooth_Random_Trees import DP_Random_Forest as DP_RNDF
+except ModuleNotFoundError:
+    pass
+    
 #from privacy.analysis.rdp_accountant import compute_rdp
 #from privacy.analysis.rdp_accountant import get_privacy_spent
 #from privacy.optimizers import dp_optimizer
