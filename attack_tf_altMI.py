@@ -1,10 +1,14 @@
-from classifier_tf import train as train_model, load_dataset, get_predictions
-from classifier_tf import train_classic as train_classic_model
+from .classifier_tf import train as train_model, load_dataset, get_predictions
+from .classifier_tf import train_classic as train_classic_model
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score, roc_curve, auc
 from scipy import stats
 import numpy as np
-import tensorflow as tf
+try:
+    import tensorflow.compat.v1 as tf
+    tf.disable_v2_behavior()
+except ImportError:
+    import tensorflow as tf
 import argparse
 import os
 import imp
@@ -13,7 +17,7 @@ import matplotlib.pyplot as plt
 import random
 import warnings
 
-from resource_tracking import resource_tracking
+from .resource_tracking import resource_tracking
 
 
 MODEL_PATH = './model/'
@@ -152,22 +156,22 @@ def train_target_model(dataset, epochs=100, batch_size=100, learning_rate=0.01,
     return attack_x, attack_y, classes, train_loss, classifier, train_acc, test_acc
 
 
-def sample_data_anew(args):
+def sample_data_anew(args, base_dir=""):
     print('-' * 10 + 'LOADING DATA DIRECT TO EXPERIMENT' + '-' * 10 + '\n')
 
     ####################################
     # Load the correct source datafile
     if 'purchase' in args.train_dataset:
-        x = pickle.load(open('dataset/purchase_features.p', 'rb'))
+        x = pickle.load(open(base_dir + 'dataset/purchase_features.p', 'rb'))
     elif 'netflix' in args.train_dataset:
-        x = pickle.load(open('dataset/netflix_features.p', 'rb'))
+        x = pickle.load(open(base_dir + 'dataset/netflix_features.p', 'rb'))
     elif 'cifar' in args.train_dataset:
-        x = pickle.load(open('dataset/cifar_features.p', 'rb'))
+        x = pickle.load(open(base_dir + 'dataset/cifar_features.p', 'rb'))
     elif 'synthetic' in args.train_dataset:
-        x = pickle.load(open('dataset/synthetic_features.p', 'rb'))
+        x = pickle.load(open(base_dir + 'dataset/synthetic_features.p', 'rb'))
     else:
-        x = pickle.load(open('dataset/'+args.train_dataset+'_features.p', 'rb'))
-    y = pickle.load(open('dataset/'+args.train_dataset+'_labels.p', 'rb'))
+        x = pickle.load(open(base_dir + 'dataset/'+args.train_dataset+'_features.p', 'rb'))
+    y = pickle.load(open(base_dir + 'dataset/'+args.train_dataset+'_labels.p', 'rb'))
     x, y = np.matrix(x), np.array(y)
 
     ####################################
