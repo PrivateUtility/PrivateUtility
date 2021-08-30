@@ -419,8 +419,8 @@ def load_dataset(train_feat, train_label, test_feat=None, test_label=None):
     min_y = np.min(train_y)
     train_y -= min_y
     if test_feat is not None and test_label is not None:
-        test_x = np.genfromtxt(train_feat, delimiter=',', dtype='float32')
-        test_y = np.genfromtxt(train_label, dtype='int32')
+        test_x = np.genfromtxt(test_feat, delimiter=',', dtype='float32')
+        test_y = np.genfromtxt(test_label, dtype='int32')
         test_y -= min_y
     else:
         test_x = None
