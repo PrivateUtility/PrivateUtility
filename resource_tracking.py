@@ -1,7 +1,17 @@
 import os
 import time
 import pickle
-import resource
+try:
+    import resource
+except ModuleNotFoundError:
+    class resource:
+        RUSAGE_SELF = "SELF"
+        RUSAGE_CHILDREN = "CHILDREN"
+
+        @staticmethod
+        def getrusage(id):
+            return(f"{id}: Module resrouce not found. Are we in Windows?")
+
 
 class resource_tracking():
     def __init__(self, args):
